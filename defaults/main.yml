@@ -1,0 +1,49 @@
+############################
+# Used in parts 1, 2 and 3 #
+############################
+
+# AWS Credentials - kept in the users .profile
+#aws_access_key: "THISISMYAWSACCESSKEY"
+#aws_secret_key: "ThisIsMyAwSSecretKey"
+
+# AWS Region
+aws_region: "us-west-2"
+
+# VPC Information
+vpc_name: "My VPC"
+vpc_cidr_block: "10.0.0.0/16"
+
+# For Security Group Rule
+my_ip:          "71.238.76.67"
+
+# Subnets
+public_subnet_1_cidr:  "10.0.0.0/24"
+
+# Create the Security Groups
+# NOTE: The regions is specified again because of the use of a template
+aws_security_groups:
+  - name: Webservers
+    description: Security group for webservers
+    region: us-west-2
+    rules: 
+      - proto: tcp
+        from_port: 22
+        to_port: 22
+        cidr_ip: all
+      - proto: tcp
+        from_port: 80
+        to_port: 80
+        cidr_ip: all
+
+  - name: Databases
+    description: Security group for internal database access
+    region: us-west-2
+    rules: 
+      - proto: tcp
+        from_port: 22
+        to_port: 22
+        cidr_ip: all
+      - proto: tcp
+        from_port: 3306
+        to_port: 3306
+        cidr_ip: internal
